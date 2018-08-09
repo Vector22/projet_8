@@ -1,0 +1,10 @@
+certifi==2018.4.16
+chardet==3.0.4
+Django==2.0.2
+idna==2.7
+pep8==1.7.1
+Pillow==5.2.0
+pytz==2018.3
+requests==2.19.1
+Unidecode==1.0.22
+urllib3==1.23

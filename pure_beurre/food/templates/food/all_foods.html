@@ -1,0 +1,11 @@
+<h1>Liste de tous les aliments <small>{{ total }} au total.</small></h1>
+<hr>
+<div>
+	{% for food in foods %}
+		<h2>{{ food.name }}</h2>
+		<br>
+		<div>
+			<img src="{{ food.image.url }}">
+		</div>
+	{% endfor %}
+</div>
