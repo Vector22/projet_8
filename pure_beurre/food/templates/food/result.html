@@ -1,4 +1,5 @@
 {% extends 'food/index.html' %}
+{% load static %}
 
 {% block header %}
 	<header style="background-color: navy;
@@ -32,7 +33,7 @@
 						<img src="{{ food.image.url }}">
 				</div>
 				{% if user.is_authenticated %}
-				<div>
+				<div id='bi'>
 					<form method="POST" class="mx-auto" id="saveForm">
 						{% csrf_token %}
 						<input type="hidden" name="foodId" id="foodId" value="{{ food.id }}">
@@ -53,51 +54,9 @@
 
 	<!-- Execute the javaScript only if a user is connected -->
 
-	{% if user.is_authenticated %}
+	    <script src="{% static 'food/vendor/jquery/jquery.min.js' %}"></script>
+
 		<script type="text/javascript">
-			$(function({
-				function callAjax(f) {
-					// recuperation des infos a envoyer
-
-					var foodId = parseInt($('#foodId').attr('value'));
-
-					// the ajax query
-					$.ajax({
-						url: '/food/saveFood/',
-						dataType: 'json',
-						data: {'foodId': foodId}
-						type: 'POST',
-						success: f,
-						error: function(error){
-							console.log(error);
-						}
-					});
-				}
-
-				function serverResponse(response) {
-					data = JSON.parse(response);
-
-					// recuperation des donnees renvoyees
-					// par le serveur
-					saved = data['saved'];
-					alreadySaved = data['alreadySaved'];
-
-					if(saved){
-						alert("L\'aliment a bien ete enregistre...");
-					}
-					else if(alreadySaved){
-						alert("L\'aliment existe deja en favoris");
-					}
-					else {
-						alert('Une erreur est survenue...')
-					}
-				}
-
-				$('#buttonSave').click(function(e) {
-					e.preventDefault();
-    				callAjax(serverResponse);
-  				});
-			});
+			
 		</script>
-	{% endif %}
 {% endblock %}
