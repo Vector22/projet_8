@@ -36,3 +36,6 @@ class MyFood(models.Model):
     userId = models.IntegerField()  # the user's id
 
     food = models.ForeignKey('Food', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.food.name

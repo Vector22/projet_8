@@ -8,8 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>Creative - Start Bootstrap Theme</title>
+  
+    <link rel="icon" href="{% static 'food/img/home_page/logo_pur_beurre.png' %}" />
+    <title>Pur Beurre</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{% static 'food/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -46,34 +47,33 @@
         <div class="navbar-header">
           <a class="navbar-brand js-scroll-trigger" href="{% url "home" %}">Pure Beurre</a>
         </div>
-          
-        <form class="navbar-form navbar-rigth inline-form" method="post">
-          {% csrf_token %}
-          <div class="form-group" id="f-g">
-            <table>
-              <tr>
-                <th>{{ form.search }}</th>
-                <td>{{ form.button }}</td>
-              </tr>
-            </table>
-          </div>
-        </form>
         
-        <ul class="nav navbar-nav home-nav">
-          <li> <a href="#histoire">Histoire</a> </li>
-          <li> <a href="#contact">Contacts</a> </li>
-        </ul>
+          <form class="navbar-form navbar-rigth inline-form" method="post">
+            {% csrf_token %}
+            <div class="form-group" id="f-g">
+              <table>
+                <tr>
+                  <th>{{ form.search }}</th>
+                  <td>{{ form.button }}</td>
+                </tr>
+              </table>
+            </div>
+          </form>
+          
+        <ul class="nav navbar-nav ">
+          <div class="home-nav navbar-nav">
+            <li> <a href="#histoire">Histoire</a> </li>
+            <li> <a href="#contact">Contacts</a> </li>
+          </div>
 
-        <ul class="nav navbar-nav">
           {% if user.is_authenticated %}
-            <li><a href="#" title="Mon compte"><span class="fas fa-user-circle fa-3x"></span></a></li>
-            <li><a href="#"><img src="{% static 'food/img/carrot.png' %}" title="Mes aliments"></a></li>
+            <li><a href="{% url 'user_detail' user.id %}" title="Mon compte"><span class="fas fa-user-circle fa-3x"></span></a></li>
+            <li><a href="{% url 'myFoods' %}"><img src="{% static 'food/img/carrot.png' %}" title="Mes aliments"></a></li>
             <li> <a href="{% url "logout" %}" title="Déconnexion"><span class="fas fa-sign-out-alt fa-3x"></span></a></li>
           {% else %}
-            <li> <a href="{% url "login" %}">Connexion</a> </li>
+            <li class="home-nav"> <a href="{% url "login" %}">Connexion</a> </li>
           {% endif %}
         </ul>
-
       </div>
     </nav>
     {% endblock %}
@@ -97,10 +97,6 @@
             <form class="form-inline" method="post">
               {% csrf_token %}
               <div class="input-group col-lg-12">
-                <!-- <input type="search" class="input form-control" placeholder="Recherche">
-                <span class="input-group-btn">
-                  <button type="submit" class="btn btn-warning" style="border-radius: 0px;"><span class="fas fa-search"></span> Chercher</button>
-                </span> -->
                 <table>
                   <tr>
                     <th>{{ form.search }}</th>
@@ -130,35 +126,24 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+            <h2>Notre identité</h2>
             <blockquote>
-              Nous sommes une jeune startup fondée par Remy et Colette Tatou, deux 
-restaurateurs de renom. Notre restaurant, situé à Montmartre (Paris), compte une 
-cinquantaine de couverts et ne désemplit pas. Notre spécialité, la ratatouille, nous 
-attire une clientèle internationale charmée par les délices de ce plat typique.  
+              <h3>De la ratatouille aux croissants</h3>
+              Pur Beurre est l'initiative de deux amoureux de la gastronomie française, Colette Tatou et Rémy, que vous avez déjà certainement rencontrés dans notre excellent restaurant Ratatouille.<br><br>
  
-Remy et Colette sont amoureux de la gastronomie française (on ne peut les blâmer !). 
-Travaillant quotidiennement avec les meilleurs produits du terroir, ils affectionnent 
-particulièrement la bonne chaire et aiment partager leur passion. Il est donc normal 
-que Remy ait sauté au plafond quand Colette, un jour de déprime, sortit du placard un 
-kilo de Nutella et l’attaqua à la petite cuillère. Pourquoi ne pas opter pour une pâte à 
-tartiner aux noisettes, plus consistante et moins sucrée ? Pourquoi, oh pourquoi 
-s’infliger une telle souffrance ? Rémy était sidéré. La réponse de Colette fut simple : 
-elle n’avait pas trouvé de substitut assez convainquant. A vrai dire, elle n’avait même 
-pas cherché. 
+<strong>Colette Tatou </strong>: "Nous aimons tous manger, surtout en France ! Personnellement, une baguette fraîche, du bon fromage de chèvre et un bon vin rouge me suffisent amplement. Comme tout le monde, je fais mes courses au supermarché. Mais petit à petit je me suis rendue compte, surtout lorsque nous avons ouvert le restaurant, que je pouvais remplacer les produits aseptisés que j'avais l'habitude d'acheter par de bons produits du terroir Et souvent pour le même prix !"<br><br>
+
  
-Tous deux se souvinrent alors que nombre de leurs clients leur avaient compté, entre 
-deux verres, qu’il était difficile de trouver des substituts aux cochonneries que nous 
-mangions dès le petit déjeuner. Pourquoi ne pas lancer une plateforme web en ce 
-sens ?
+<strong>Remy </strong> : "Pour ma part je me rendais déjà dans bien des magasins car j'aime beaucoup me balader, surtout dans les caves et les cuisines. Je connaissais par coeur le contenu des boutiques bio (dont je raffole) ainsi que les ingrédients de tous les aliments vendus. Lorsque Colette m'a demandé si elle pouvait remplacer son Nutella matinal par un aliment plus sain, je savais tout de suite où le trouver. L'idée de Pur Beurre était née !"
             </blockquote> 
           </div>
         </div>
         <div class="row">
           <div class="container-fluid p-0">
-            <div class="row no-gutters popup-gallery">
+            <div class="row no-gutters popup-gallery" style="background-color: #FFF; border-radius: 20px/20px;">
               <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" id="colette">
                 <a class="portfolio-box" href="#colette">
-                  <img class="img-fluid" src="{% static 'food/img/home_page/index.jpeg' %}" alt="">
+                  <img class="img-fluid persona" src="{% static 'food/img/home_page/colette-tatou.png' %}" alt="">
                   <div class="portfolio-box-caption">
                     <div class="portfolio-box-caption-content">
                       <div class="project-category text-faded">
@@ -173,7 +158,7 @@ sens ?
               </div>
               <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" id="remy">
                 <a class="portfolio-box" href="#remy">
-                  <img class="img-fluid" src="{% static 'food/img/home_page/remy.jpg' %}" alt="">
+                  <img class="img-fluid persona" src="{% static 'food/img/home_page/ratatouille.jpg' %}" alt="">
                   <div class="portfolio-box-caption">
                     <div class="portfolio-box-caption-content">
                       <div class="project-category text-faded">
@@ -222,7 +207,7 @@ sens ?
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12 ml-auto text-center">
           <p>
-            <a href="#" style="color: yellow;">Mentions légales</a>
+            <a href="{% url 'legale_notice' %}" style="color: yellow;">Mentions légales</a>
           </p>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12 ml-auto text-center">

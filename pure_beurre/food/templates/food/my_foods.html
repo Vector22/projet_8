@@ -1,0 +1,55 @@
+{% extends 'food/index.html' %}
+{% load static %}
+
+{% block header %}
+<style type="text/css">
+	.badge {
+		color: green;
+		background-color: #FFF;
+		border-radius: 10px/25px;
+		font-size: 1.3em;
+	}
+	.score {
+		margin-bottom: 15px;
+	}
+	.score:hover {
+		color: green;
+		background-color: #FFF;
+	}
+</style>
+{% if headerFood %}
+<header style="background-color: navy;
+	margin-top: 70px;">
+		<div class="container">
+			<div class="row thumbnail ">
+				<div class="mx-auto">
+					<img src="{{ headerFood.food.image.url }}">
+				</div>	
+			</div>
+			
+		</div>
+</header>
+{% endif %}
+{% endblock %}
+
+{% block sections %}
+<div class="container">
+	<div class="text-center row">
+			<div class="col-md-12 col-sm-12">
+				<h3 class="jumbotron">Mes aliments favoris</h3>
+			</div>
+	</div>
+	<div class="row">
+			{% for favorite in favoritesFoods %}
+			<div class="col-md-4 text-center is" style="border: 2px solid black;">
+				<h3>{{ favorite.food.name }}</h3>
+				<br>
+				<button type="button" class="btn btn-success score">Score nutritionnel: <span class="badge">{{ food.nutritionGrade }}</span></button>
+				<a href="{% url 'food_detail' favorite.food.id %}">
+					<img src="{{ favorite.food.image.url }}" class="img">
+				</a>
+			</div>
+			{% endfor %}
+		</div>
+</div>
+{% endblock %}

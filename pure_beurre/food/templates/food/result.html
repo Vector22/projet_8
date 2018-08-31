@@ -2,12 +2,36 @@
 {% load static %}
 
 {% block header %}
+	<style type="text/css">
+		.img {
+		width: 350px;
+		height: 400px;
+	}
+	.main-img {
+		width: 750px;
+		height: 400px;
+	}
+	.badge {
+		color: green;
+		background-color: #FFF;
+		border-radius: 10px/25px;
+		font-size: 1.3em;
+	}
+	.score {
+		margin-bottom: 15px;
+	}
+	.score:hover {
+		color: green;
+		background-color: #FFF;
+	}
+	</style>
+
 	<header style="background-color: navy;
 	margin-top: 70px;">
 		<div class="container">
 			<div class="row thumbnail ">
 				<div class="mx-auto">
-					<img src="{{ food.image.url }}">
+					<img src="{{ food.image.url }}" class="main-img">
 				</div>	
 			</div>
 			
@@ -28,35 +52,36 @@
 			<div class="col-md-4 text-center is" style="border: 2px solid black;">
 				<h3>{{ food.name }}</h3>
 				<br>
-				<div class="">
-						<span class="icone">Q</span>
-						<img src="{{ food.image.url }}">
-				</div>
+					<button type="button" class="btn btn-success score">Score nutritionnel: <span class="badge">{{ food.nutritionGrade }}</span></button>
+					<a href="{% url 'food_detail' food.id %}">
+						<img src="{{ food.image.url }}" class="img">
+					</a>
 				{% if user.is_authenticated %}
-				<div id='bi'>
-					<form method="POST" class="mx-auto" id="saveForm">
-						{% csrf_token %}
-						<input type="hidden" name="foodId" id="foodId" value="{{ food.id }}">
-						<input type="hidden" name="userId" id="userId" value="{{ user.id }}">
-						<span class="input-group-btn">
-							<button type="submit" id="buttonSave">
-								<span class="fas fa-save"></span>
-								Sauvegarder
-							</button>
-						</span>
-					</form>
-				</div>
+				<form method="POST" action="{% url 'saveFood' %}">
+					{% csrf_token %}
+					<input type="hidden" name="foodId" id="foodId" value="{{ food.id }}">
+					<input type="hidden" name="userId" id="userId" value="{{ user.id }}">
+					<span class="input-group-btn">
+						<button id="buttonSave" type="submit">
+							<span class="fas fa-save"></span>
+							Sauvegarder
+						</button>
+					</span>
+				</form>
 				{% endif %}
 			</div>
-		{% endfor %}
+			{% endfor %}
+		</div>
+		</div>
+  		{% if messages %}
+    		<ul class="messages">
+      		{% for message in messages %}
+        		<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      		{% endfor %}
+    		</ul>
+  		{% endif %}
 		</div>
 	</div>
 
-	<!-- Execute the javaScript only if a user is connected -->
-
-	    <script src="{% static 'food/vendor/jquery/jquery.min.js' %}"></script>
-
-		<script type="text/javascript">
-			
-		</script>
+	
 {% endblock %}

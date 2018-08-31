@@ -1,14 +1,14 @@
 from django.contrib.auth import login, authenticate, logout
+from django.views.generic import DetailView
 from django.contrib.auth.models import User
-from django.views.decorators.csrf import csrf_exempt
-from django.urls import reverse
+from django.contrib import messages
 from django.shortcuts import render, redirect
-import json
+from django.urls import reverse
 
 from .forms import SignUpForm, ResearchForm
-from .models import Category, Food, MyFood
+from .models import Food, MyFood
 
-# Create your views here.
+from random import randrange
 
 
 def home(request):
@@ -35,11 +35,87 @@ def result(request, searchedFood):
     else:
         form = ResearchForm()
 
-    food = Food.objects.filter(nameFr__contains=str(searchedFood))[0]
+    state = Food.objects.filter(name__contains=str(searchedFood)).exists()
+    if not state:
+        return redirect('food_not_found')
+    food = Food.objects.filter(name__contains=str(searchedFood))[0]
     temp = food.category.food_set.all()
     foodSubtituts = temp.exclude(id=food.id).order_by('nutritionGrade')
 
     return render(request, 'food/result.html', locals())
+
+
+def saveFood(request):
+    """ This function perform the task what permit
+    to save a food in favorite by the user
+    """
+
+    # recover the data transmitted by the client
+    foodId = int(request.POST.get('foodId', None))
+    userId = int(request.POST.get('userId', None))
+
+    if foodId and userId:
+        food = Food.objects.get(id=foodId)  # the concerned food
+        # verfy if the food has been already saved by the user
+        foodSaved = MyFood.objects.filter(food=food).exists()
+        # if never saved, save it
+        if not foodSaved:
+            # save the food in the db
+            favoriteFood = MyFood.objects.create(userId=userId,
+                                                 food=food)
+            favoriteFood.save()
+            messages.add_message(request, messages.SUCCESS,
+                                 'The food has been saved...')
+            return redirect('result', searchedFood=food.name)
+        else:
+            messages.add_message(request, messages.WARNING,
+                                 'This food is already in your favorites...')
+            return redirect('result', searchedFood=food.name)
+
+    else:
+        messages.add_message(request, messages.WARNING,
+                             'An error has occured when saving the food !')
+        return redirect('result', searchedFood=food.name)
+
+
+def myFoods(request):
+    """ This function show the user's favorites foods """
+    if request.method == 'POST':
+        form = ResearchForm(request.POST or None)
+        if form.is_valid():
+            searchedFood = form.cleaned_data['search']
+            return redirect('result', searchedFood=searchedFood)
+    else:
+        form = ResearchForm()
+
+    favoritesFoods = MyFood.objects.filter(userId=request.user.id)
+    if favoritesFoods.count() > 0:
+        # choose a food to display at the top of the page randomly
+        headerFood = favoritesFoods[randrange(favoritesFoods.count())]
+    return render(request, 'food/my_foods.html', locals())
+
+
+def foodNotFound(request):
+    if request.method == 'POST':
+        form = ResearchForm(request.POST or None)
+        if form.is_valid():
+            searchedFood = form.cleaned_data['search']
+            return redirect('result', searchedFood=searchedFood)
+    else:
+        form = ResearchForm()
+    return render(request, 'food/food_not_found.html', locals())
+
+
+class FoodDetail(DetailView):
+    model = Food
+    template_name = 'food/food_details.html'
+    context_object_name = 'food'
+
+
+class UserDetail(DetailView):
+    model = User
+    template_name = 'food/user_details.html'
+    context_object_name = 'user'
 
 
 def signup(request):
@@ -62,11 +138,5 @@ def log_out(request):
     return redirect(reverse(home))
 
 
-def all_foods(request):
-    foods = Food.objects.all()
-    total = Food.objects.count()
-    return render(request, 'food/all_foods.html', locals())
-
-
-def test(request):
-    return render(request, 'food/test.html')
+def legaleNotice(request):
+    return render(request, 'food/mentions_legales.html', locals())
