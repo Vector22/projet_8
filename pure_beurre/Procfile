@@ -1,2 +1,1 @@
 web: gunicorn pure_beurre.wsgi
-web: python pure_beurre/manage.py runserver 0.0.0.0:$PORT
