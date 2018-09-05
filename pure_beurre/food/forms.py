@@ -54,33 +54,6 @@ class SubmitButtonField(forms.Field):
         return value
 
 
-class SaveButtonWidget(forms.Widget):
-    """ Custom save button widget and field """
-
-    def render(self, name, value, attrs=None):
-        customButton = """
-        <span class="input-group-btn">
-            <button type="submit" id="save" name="{}">
-                <span class="fas fa-save"></span>
-                {}
-            </button>
-        </span>
-        """.format(html.escape(name), html.escape(value))
-        return customButton
-
-
-class SaveButtonField(forms.Field):
-    def __init__(self, *args, **kwargs):
-        if not kwargs:
-            kwargs = {}
-        kwargs["widget"] = SaveButtonWidget
-
-        super(SaveButtonField, self).__init__(*args, **kwargs)
-
-    def clean(self, value):
-        return value
-
-
 class ResearchForm(forms.Form):
     """ The main page and menu research form """
 
@@ -99,12 +72,3 @@ class ResearchForm(forms.Form):
         if not search:
             raise forms.ValidationError('You have to write something to\
                                         research !')
-
-
-class SaveForm(forms.Form):
-    """ A checkbox that check if the user choose to save a food """
-
-    save = SaveButtonField(label="", initial=u" Sauvegarder")
-    # A hiden integerfield for internal use:
-    # save the choosen food id
-    foodId = forms.IntegerField(widget=forms.HiddenInput())

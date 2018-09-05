@@ -15,7 +15,7 @@ urlpatterns = [
     path('logout/', views.log_out, name='logout'),
     path('result/<str:searchedFood>', views.result, name='result'),
     path('saveFood/', views.saveFood, name='saveFood'),
-    path('myFoods/', views.myFoods, name='myFoods'),
+    path('myFoods/', login_required(views.myFoods), name='myFoods'),
     path('user/<int:pk>/', login_required(views.UserDetail.as_view()),
          name='user_detail'),
     path('food/<int:pk>/', views.FoodDetail.as_view(),

@@ -98,7 +98,7 @@ def fill_table(maxFoodCat, maxFoodPage):
                     #imageSmallDirectory = 'media/imageSmall/'  # small
                     imageDirectory = 'media/image/'
 
-                    # variables what rename the downloaded images
+                    # variables who rename the downloaded images
                     imageName = "{}.jpg".format(slugify(food.name))
                     imageSmallName = "{}-sm.jpg".format(slugify(food.name))
 
@@ -122,10 +122,6 @@ def fill_table(maxFoodCat, maxFoodPage):
                     else:
                         foodsName.append(food.name)
                         food.save()
-                        #print("{} sauve...".format(food.name))
-
-                    # save all the modifications
-                    #food.save()
 
 
 def clear_table():
@@ -145,8 +141,8 @@ def clear_table():
 
 def init_db():
 
-    maxFoodCat = 3
-    maxFoodPage = 5
+    maxFoodCat = 15
+    maxFoodPage = 4
 
     fill_table(maxFoodCat, maxFoodPage)
 

@@ -38,4 +38,4 @@ class MyFood(models.Model):
     food = models.ForeignKey('Food', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.food.name
+        return self.food.nameFr

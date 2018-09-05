@@ -15,12 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.auth import views as auth_views
 
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # usefull for the login test redirection
+    path('accounts/login/', auth_views.login,
+         {'template_name': 'food/registration/login.html'},
+         name='accounts_login'),
     path('food/', include('food.urls')),
 ]
 
