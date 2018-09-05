@@ -29,7 +29,7 @@ if os.environ.get('ENV') == 'PRODUCTION':
 else:
     DEBUG = True
 
-ALLOWED_HOSTS = ['pure_beurre.herokuapp.com']
+ALLOWED_HOSTS = ['pure-beurre.herokuapp.com']
 
 
 # Application definition
