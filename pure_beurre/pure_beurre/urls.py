@@ -26,7 +26,7 @@ urlpatterns = [
     path('accounts/login/', auth_views.login,
          {'template_name': 'food/registration/login.html'},
          name='accounts_login'),
-    path('food/', include('food.urls')),
+    path('', include('food.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

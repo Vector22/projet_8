@@ -158,8 +158,8 @@ class ViewsTest(TestCase):
         self.nutritionGrade = 'C'
         self.countries = "France"
         self.ingredientsText = "Eau, sucre, orange naturel"
-        self.image = File(open('media/image/citronnade.jpg', 'rb'))
-        self.imageSmall = File(open('media/image/citronnade-sm.jpg', 'rb'))
+        self.image = File(open('media/image/caro.jpg', 'rb'))
+        self.imageSmall = File(open('media/image/caro-sm.jpg', 'rb'))
         self.food = Food.objects.create(nameFr=self.nameFr,
                                         url=self.url,
                                         nutritionGrade=self.nutritionGrade,
@@ -185,7 +185,7 @@ class ViewsTest(TestCase):
         # Check that the view don't use myFoods template
         self.assertTemplateNotUsed(response, 'food/my_foods.html')
         # Check that the next redirection page is correct
-        self.assertRedirects(response, '/accounts/login/?next=/food/myFoods/')
+        self.assertRedirects(response, '/accounts/login/?next=/myFoods/')
 
     def test_signup_view(self):
         """ Verify if a user can logged in """
