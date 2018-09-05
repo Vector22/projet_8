@@ -136,7 +136,7 @@ LOGIN_REDIRECT_URL = 'home'
 
 # Media root folder
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Media url
 
