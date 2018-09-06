@@ -87,7 +87,7 @@ def fill_table(maxFoodCat, maxFoodPage):
                     food.purchasePlaces = fObject['purchase_places']
                     food.countries = fObject['countries'].replace("en:", "")
                     food.ingredientsText = fObject['ingredients_text']
-                    food.image_url = fObject['image_front_url']
+                    food.image_link = fObject['image_front_url']
 
                     # this section deals with uploading images and inserting
                     # them into the DB
