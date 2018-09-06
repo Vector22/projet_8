@@ -26,7 +26,7 @@
 		<div class="container">
 			<div class="row thumbnail ">
 				<div class="mx-auto">
-					<img src="{{ headerFood.food.image_url }}">
+					<img src="{{ headerFood.food.image_link }}">
 				</div>	
 			</div>
 			
@@ -49,7 +49,7 @@
 				<br>
 				<button type="button" class="btn btn-success score">Score nutritionnel: <span class="badge">{{ food.nutritionGrade }}</span></button>
 				<a href="{% url 'food_detail' favorite.food.id %}">
-					<img src="{{ favorite.food.image_url }}" class="img">
+					<img src="{{ favorite.food.image_link }}" class="img">
 				</a>
 			</div>
 			{% endfor %}

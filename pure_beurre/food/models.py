@@ -20,7 +20,7 @@ class Food(models.Model):
     purchasePlaces = models.CharField(max_length=200)
     manufacturingPlaces = models.TextField()
     ingredientsText = models.TextField()
-    image_url = models.URLField(max_length=250, default="", null=True)
+    image_link = models.URLField(max_length=250, null=True)
     #image = models.ImageField(upload_to='image_bd/')
     #imageSmall = models.ImageField(upload_to='image_bd/')
 
