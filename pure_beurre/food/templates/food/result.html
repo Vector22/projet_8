@@ -31,7 +31,7 @@
 		<div class="container">
 			<div class="row thumbnail ">
 				<div class="mx-auto">
-					<img src="{{ food.image.url }}" class="main-img">
+					<img src="{{ food.image_url }}" class="main-img">
 				</div>	
 			</div>
 			
@@ -54,7 +54,7 @@
 				<br>
 					<button type="button" class="btn btn-success score">Score nutritionnel: <span class="badge">{{ food.nutritionGrade }}</span></button>
 					<a href="{% url 'food_detail' food.id %}">
-						<img src="{{ food.image.url }}" class="img">
+						<img src="{{ food.image_url }}" class="img">
 					</a>
 				{% if user.is_authenticated %}
 				<form method="POST" action="{% url 'saveFood' %}">

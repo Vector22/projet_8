@@ -87,6 +87,7 @@ def fill_table(maxFoodCat, maxFoodPage):
                     food.purchasePlaces = fObject['purchase_places']
                     food.countries = fObject['countries'].replace("en:", "")
                     food.ingredientsText = fObject['ingredients_text']
+                    food.image_url = fObject['image_front_url']
 
                     # this section deals with uploading images and inserting
                     # them into the DB
@@ -96,7 +97,7 @@ def fill_table(maxFoodCat, maxFoodPage):
                     # variables what store the the saved images directory path
                     #imageDirectory = 'media/image/'  # for the normal size
                     #imageSmallDirectory = 'media/imageSmall/'  # small
-                    imageDirectory = 'media/image/'
+                    """imageDirectory = 'media/image/'
 
                     # variables who rename the downloaded images
                     imageName = "{}.jpg".format(slugify(food.name))
@@ -115,7 +116,7 @@ def fill_table(maxFoodCat, maxFoodPage):
                     # now we can fill the two imageFields
                     # with the downloaded images
                     food.image = File(open(imagePath, 'rb'))
-                    food.imageSmall = File(open(imageSmallPath, 'rb'))
+                    food.imageSmall = File(open(imageSmallPath, 'rb'))"""
 
                     if food.name in foodsName:
                         pass
@@ -141,8 +142,8 @@ def clear_table():
 
 def init_db():
 
-    maxFoodCat = 15
-    maxFoodPage = 4
+    maxFoodCat = 2
+    maxFoodPage = 2
 
     fill_table(maxFoodCat, maxFoodPage)
 
