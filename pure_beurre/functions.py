@@ -142,9 +142,7 @@ def clear_table():
 
 def init_db():
 
-    maxFoodCat = 40
+    maxFoodCat = 20
     maxFoodPage = 5
 
     fill_table(maxFoodCat, maxFoodPage)
-
-    print("\n\nWARNING !!! Database initialized...\n")
