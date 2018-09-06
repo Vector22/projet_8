@@ -38,7 +38,7 @@ def result(request, searchedFood):
     state = Food.objects.filter(name__contains=str(searchedFood)).exists()
     if not state:
         return redirect('food_not_found')
-    food = Food.objects.filter(name__contains=str(searchedFood))[0]
+    food = Food.objects.filter(name__icontains=str(searchedFood))[0]
     temp = food.category.food_set.all()
     foodSubtituts = temp.exclude(id=food.id).order_by('nutritionGrade')
 

@@ -142,8 +142,8 @@ def clear_table():
 
 def init_db():
 
-    maxFoodCat = 2
-    maxFoodPage = 2
+    maxFoodCat = 40
+    maxFoodPage = 5
 
     fill_table(maxFoodCat, maxFoodPage)
 
