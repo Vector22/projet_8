@@ -1,5 +1,9 @@
 pure_beurre/__pycache__/
 pure_beurre/food/__pycache__/
+pure_beurre/food/management/__pycache__/
+pure_beurre/food/management/commands/__pycache__/
+pure_beurre/food/migrations/__pycache__/
 pure_beurre/pure_beurre/__pycache__/
+pure_beurre/pure_beurre/settings/__pycache__/
 pure_beurre/.coverage
 env/
