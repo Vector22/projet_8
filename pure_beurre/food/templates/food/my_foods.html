@@ -9,12 +9,15 @@
 		border-radius: 10px/25px;
 		font-size: 1.3em;
 	}
+
 	.h3 {
 		margin-top: 100px;
 	}
+
 	.score {
 		margin-bottom: 15px;
 	}
+
 	.score:hover {
 		color: green;
 		background-color: #FFF;
@@ -23,14 +26,14 @@
 {% if headerFood %}
 <header style="background-color: navy;
 	margin-top: 70px;">
-		<div class="container">
-			<div class="row thumbnail ">
-				<div class="mx-auto">
-					<img src="{{ headerFood.food.image_link }}">
-				</div>	
+	<div class="container">
+		<div class="row thumbnail ">
+			<div class="mx-auto">
+				<img src="{{ headerFood.food.image_link }}">
 			</div>
-			
 		</div>
+
+	</div>
 </header>
 {% endif %}
 {% endblock %}
@@ -38,21 +41,27 @@
 {% block sections %}
 <div class="container">
 	<div class="text-center row">
-			<div class="col-md-12 col-sm-12 h3">
-				<h3 class="jumbotron">Mes aliments favoris</h3>
-			</div>
+		<div class="col-md-12 col-sm-12 h3">
+			{% if favoritesFoods %}
+			<h3 class="jumbotron">Mes aliments favoris</h3>
+			{% else %}
+			<h4 class="jumbotron">Vous n'avez pas d'aliments favoris</h4>
+			{% endif %}
+		</div>
 	</div>
 	<div class="row">
-			{% for favorite in favoritesFoods %}
-			<div class="col-md-4 text-center is" style="border: 2px solid black;">
-				<h3>{{ favorite.food.name }}</h3>
-				<br>
-				<button type="button" class="btn btn-success score">Score nutritionnel: <span class="badge">{{ food.nutritionGrade }}</span></button>
-				<a href="{% url 'food_detail' favorite.food.id %}">
-					<img src="{{ favorite.food.image_link }}" class="img">
-				</a>
-			</div>
-			{% endfor %}
+		{% for favorite in favoritesFoods %}
+		<div class="col-md-4 text-center is" style="border: 2px solid black;">
+			<h3>{{ favorite.food.name }}</h3>
+			<br>
+			<button type="button" class="btn btn-success score">Score nutritionnel:
+				<span class="badge">{{favorite.food.nutritionGrade }}</span>
+			</button>
+			<a href="{% url 'food_detail' favorite.food.id %}">
+				<img src="{{ favorite.food.image_link }}" class="img">
+			</a>
 		</div>
+		{% endfor %}
+	</div>
 </div>
 {% endblock %}
