@@ -35,12 +35,12 @@ def result(request, searchedFood):
     else:
         form = ResearchForm()
 
-    state = Food.objects.filter(name__contains=str(searchedFood)).exists()
-    if not state:
+    result = Food.objects.filter(name__contains=str(searchedFood)).exists()
+    if not result:
         return redirect('food_not_found')
-    food = Food.objects.filter(name__icontains=str(searchedFood))[0]
-    temp = food.category.food_set.all()
-    foodSubtituts = temp.exclude(id=food.id).order_by('nutritionGrade')
+    first_food = Food.objects.filter(name__icontains=str(searchedFood))[0]
+    temp = first_food.category.food_set.all()
+    foodSubtituts = temp.exclude(id=first_food.id).order_by('nutritionGrade')
 
     return render(request, 'food/result.html', locals())
 
@@ -61,8 +61,7 @@ def saveFood(request):
         # if never saved, save it
         if not foodSaved:
             # save the food in the db
-            favoriteFood = MyFood.objects.create(userId=userId,
-                                                 food=food)
+            favoriteFood = MyFood.objects.create(userId=userId, food=food)
             favoriteFood.save()
             messages.add_message(request, messages.SUCCESS,
                                  'The food has been saved...')
